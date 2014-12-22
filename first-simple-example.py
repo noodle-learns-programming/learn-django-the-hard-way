@@ -16,11 +16,35 @@ from django.http import HttpResponse
 
 # Cho nay thi minh hieu, giong nhu micro framework thui
 def index(request):
+
+    """
+
+    :param request:
+    :return:
+    """
     return HttpResponse('Hello World')
 
+
+def new(request):
+    """
+
+    :param request:
+    :return:
+    """
+
+    return HttpResponse('New View')
+
+def placeholder(request, width, height):
+    content = 'Placeholder: {0} x {1}'.format(width, height)
+    return HttpResponse(content)
+
 # Define lai router, co suc manh giong Zend khong?
+# Su dung dc cai bien global nay lun ha ta?
+#
 urlpatterns = (
     url(r'^$', index),
+    url('new', new),
+    url(r'^image/(?P<width>[0-9]+)x(?P<height>[0-9]+)/$', placeholder, name='placeholder'),
 )
 #
 #--------------------------------------------------------------------------------
