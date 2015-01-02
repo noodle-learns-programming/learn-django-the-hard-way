@@ -11,11 +11,16 @@ settings.configure(
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ),
 )
-from django.conf.urls import url
+
+from django.conf.urls import include, patterns, url
 from django.http import HttpResponse
+from django.core.wsgi import get_wsgi_application
+from views import angular
+
+application = get_wsgi_application()
 
 # Cho nay thi minh hieu, giong nhu micro framework thui
-def index(request):
+def home(request):
 
     """
 
@@ -41,9 +46,11 @@ def placeholder(request, width, height):
 # Define lai router, co suc manh giong Zend khong?
 # Su dung dc cai bien global nay lun ha ta?
 #
-urlpatterns = (
-    url(r'^$', index),
+urlpatterns = patterns(
+    '',
+    url(r'^$', home),
     url('new', new),
+    url(r'^angular/', include('views.urls')),
     url(r'^image/(?P<width>[0-9]+)x(?P<height>[0-9]+)/$', placeholder, name='placeholder'),
 )
 #
