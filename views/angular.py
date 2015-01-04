@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from PIL import Image, ImageDraw
 from io import BytesIO
 from django.views.decorators.http import etag
+from django.core.urlresolvers import reverse
+from django.shortcuts import render
 
 class ImageForm(forms.Form):
     """Form to validate requested placeholder image."""
@@ -54,3 +56,11 @@ def placeholder(req, width, height):
         return response
     else:
         return HttpResponseBadRequest('Invalid Image Request')
+
+
+def home(request):
+    example = reverse('placeholder', kwargs={'width': 50, 'height':50})
+    context = {
+        'example': request.build_absolute_uri(example)
+    }
+    return render(request, 'home.html', context)

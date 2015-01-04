@@ -1,6 +1,8 @@
 import sys
+import os
 from django.conf import settings
 
+BASE_DIR = os.path.dirname(__file__)
 settings.configure(
     DEBUG=True,
     SECRET_KEY='thisisthesecretkey',
@@ -10,6 +12,16 @@ settings.configure(
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ),
+    INSTALLED_APPS=(
+        'django.contrib.staticfiles',
+    ),
+    TEMPLATE_DIRS=(
+        os.path.join(BASE_DIR, 'templates'),
+    ),
+    STATICFILES_DIRS=(
+        os.path.join(BASE_DIR, 'static'),
+    ),
+    STATIC_URL='/static/',
 )
 
 from django.conf.urls import include, patterns, url
@@ -51,7 +63,7 @@ urlpatterns = patterns(
     url(r'^$', home),
     url('new', new),
     url(r'^angular/', include('views.urls')),
-    url(r'^image/(?P<width>[0-9]+)x(?P<height>[0-9]+)/$', placeholder, name='placeholder'),
+    url(r'^image/(?P<width>[0-9]+)x(?P<height>[0-9]+)/$', placeholder),
 )
 #
 #--------------------------------------------------------------------------------
