@@ -36,6 +36,7 @@ def add(req, n1, n2):
     content = 'Add: {0} + {1}'.format(n1, n2)
     return HttpResponse(content)
 
+#Tu duy cho nay cua Python la rat hay
 #Cho etag nay khong thay work voi Chrome gi het
 @etag(generate_etag)
 def placeholder(req, width, height):
